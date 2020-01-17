@@ -15,8 +15,7 @@ namespace Downloader
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string WelcomeText { get; set; } = "Hello World!";
-
+        
         public string UrlText { get; set; }
 
         public ObservableCollection<Download> Downloads { get; set; } = new ObservableCollection<Download>();
@@ -27,7 +26,7 @@ namespace Downloader
 
         public MainViewModel()
         {
-
+            
             AddToList = new CommandAddToList(this);
             StartDownloading = new CommandStartDownloading(this);
         }
