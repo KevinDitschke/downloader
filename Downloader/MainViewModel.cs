@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Downloader
 {
-    class DownloadList
+    class MainViewModel
     {
-
-
-
     }
 }
