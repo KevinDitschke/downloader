@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -26,14 +27,9 @@ namespace Downloader
 
         public void Execute(object parameter)
         {
-            using(var client = new WebClient())
-            {
-                string[] urlParts = _mainViewModel.UrlText.Split('/');
 
-                string filename = urlParts.Last();
-
-                
-            }
+            string filename = Path.GetFileName(_mainViewModel.UrlText);
+            
         }
     }
 }

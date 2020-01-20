@@ -7,22 +7,12 @@ using System.Threading.Tasks;
 
 namespace Downloader
 {
-    class Download : INotifyPropertyChanged
+    class Download
     {
         
         public int Progress { get; set; }
         public string Name { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
-        {
-            if(PropertyChanged != null)
-            {
-
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-
-            }
-        }
+        
     }
 }
