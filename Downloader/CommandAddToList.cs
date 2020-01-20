@@ -27,9 +27,15 @@ namespace Downloader
         {
             if (_mainViewModel.UrlText != "" && _mainViewModel.UrlText != null)
             {
-                var urlName = Path.GetFileName(_mainViewModel.UrlText);
-                _mainViewModel.Downloads.Add(new Download { Name = urlName, Progress = 0 });
-                _mainViewModel.UrlText = "";
+                if (Uri.IsWellFormedUriString(_mainViewModel.UrlText, UriKind.Absolute)) { 
+                    var urlName = Path.GetFileName(_mainViewModel.UrlText);
+                    _mainViewModel.Downloads.Add(new Download() { Name = urlName, Progress = 50 });
+                    _mainViewModel.UrlText = "";
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid URL!");
+                }
             }
         }
     }

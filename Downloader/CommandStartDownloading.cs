@@ -4,20 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Downloader
 {
     class CommandStartDownloading : ICommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly Download _download;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandStartDownloading(MainViewModel mainViewModel)
+        public CommandStartDownloading(Download download)
         {
-            _mainViewModel = mainViewModel;
+            _download = download;
         }
 
         public bool CanExecute(object parameter)
@@ -27,8 +29,8 @@ namespace Downloader
 
         public void Execute(object parameter)
         {
-
-            Console.WriteLine(parameter.ToString());
+            
+            MessageBox.Show("CommandStopDownloading executed");
             
         }
     }

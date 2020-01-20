@@ -21,6 +21,7 @@ namespace Downloader
 
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
+
         private string _urlText;
         
         public string UrlText
@@ -50,8 +51,8 @@ namespace Downloader
         {
             
             AddToList = new CommandAddToList(this);
-            StartDownloading = new CommandStartDownloading(this);
-            StopDownloading = new CommandStopDownloading(this);
+            //StartDownloading = new CommandStartDownloading(this);
+            //StopDownloading = new CommandStopDownloading(this);
 
         }
         

@@ -10,18 +10,18 @@ namespace Downloader
 {
     class CommandStopDownloading : ICommand
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly Download _download;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandStopDownloading(MainViewModel mainViewModel)
+        public CommandStopDownloading(Download download)
         {
-            _mainViewModel = mainViewModel;
+            _download = download;
         }
 
         public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void Execute(object parameter)
