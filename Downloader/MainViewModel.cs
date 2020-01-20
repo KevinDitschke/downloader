@@ -8,7 +8,7 @@ namespace Downloader
     class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<Download> Downloads { get; set; } = new ObservableCollection<Download>();
+        public ObservableCollection<DownloadViewModel> Downloads { get; set; } = new ObservableCollection<DownloadViewModel>();
 
         public CommandAddToList AddToList { get; set; }
 

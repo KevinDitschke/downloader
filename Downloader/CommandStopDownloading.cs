@@ -5,11 +5,11 @@ namespace Downloader
 {
     class CommandStopDownloading : ICommand
     {
-        private readonly Download _download;
+        private readonly DownloadViewModel _download;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandStopDownloading(Download download)
+        public CommandStopDownloading(DownloadViewModel download)
         {
             _download = download;
         }

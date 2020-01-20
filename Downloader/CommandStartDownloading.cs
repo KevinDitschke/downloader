@@ -5,11 +5,11 @@ namespace Downloader
 {
     class CommandStartDownloading : ICommand
     {
-        private readonly Download _download;
+        private readonly DownloadViewModel _download;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandStartDownloading(Download download)
+        public CommandStartDownloading(DownloadViewModel download)
         {
             _download = download;
         }

@@ -10,7 +10,7 @@
         <Label Name="welcomeText" Content="Enter URL to the file you wish to download" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding Path=UrlText, Mode=TwoWay}" HorizontalAlignment="Left" Height="21" Margin="33,41,0,0" TextWrapping="Wrap" ToolTip="Enter URL here" VerticalAlignment="Top" Width="626"/>
         <Button Command="{Binding AddToList}" Content="Add to List" HorizontalAlignment="Left" Margin="675,41,0,0" VerticalAlignment="Top" Width="78" Height="21"/>
-        <ListView ItemsSource="{Binding Path=Downloads, UpdateSourceTrigger=PropertyChanged}" Margin="33,85,39,27">
+        <ListView ItemsSource="{Binding Downloads, UpdateSourceTrigger=PropertyChanged}" Margin="33,85,39,27">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="300" Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -25,7 +25,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Focusable="False" Content="Start" Command="{Binding Path=StartDownloading}"/>
+                                    <Button Focusable="False" Content="Start" Command="{Binding StartDownloading}"/>
                                 </StackPanel>
                                 </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -34,7 +34,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Focusable="False" Content="Stop" Command="{Binding Path=StopDownloading}"/>
+                                    <Button Focusable="False" Content="Stop" Command="{Binding StopDownloading}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

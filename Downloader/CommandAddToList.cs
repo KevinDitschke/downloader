@@ -25,7 +25,7 @@ namespace Downloader
             {
                 if (Uri.IsWellFormedUriString(_mainViewModel.UrlText, UriKind.Absolute)) { 
                     var urlName = Path.GetFileName(_mainViewModel.UrlText);
-                    _mainViewModel.Downloads.Add(new Download() { Name = urlName, Progress = 0 , URL = _mainViewModel.UrlText});
+                    _mainViewModel.Downloads.Add(new DownloadViewModel() { Name = urlName, Progress = 0 , URL = _mainViewModel.UrlText});
                     _mainViewModel.UrlText = "";
                 }
                 else
