@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Downloader
@@ -26,7 +21,9 @@ namespace Downloader
 
         public void Execute(object parameter)
         {
-            MessageBox.Show("CommandStopDownloading executed");
+
+            _download.StopDownload();
+            
         }
     }
 }

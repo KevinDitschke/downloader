@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Downloader
 {
@@ -18,9 +11,6 @@ namespace Downloader
         public ObservableCollection<Download> Downloads { get; set; } = new ObservableCollection<Download>();
 
         public CommandAddToList AddToList { get; set; }
-
-        public CommandStartDownloading StartDownloading { get; set; }
-        public CommandStopDownloading StopDownloading { get; set; }
 
         private string _urlText;
         
@@ -51,8 +41,7 @@ namespace Downloader
         {
             
             AddToList = new CommandAddToList(this);
-            //StartDownloading = new CommandStartDownloading(this);
-            //StopDownloading = new CommandStopDownloading(this);
+            
 
         }
         
