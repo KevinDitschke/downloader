@@ -4,33 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.IO;
 using System.Windows.Input;
 
 namespace Downloader
 {
-    class CommandAddToList : ICommand
+    class CommandStopDownloading : ICommand
     {
         private readonly MainViewModel _mainViewModel;
+
         public event EventHandler CanExecuteChanged;
 
-        public CommandAddToList(MainViewModel mainViewModel)
+        public CommandStopDownloading(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
         }
+
         public bool CanExecute(object parameter)
         {
-            return true;
+            throw new NotImplementedException();
         }
 
         public void Execute(object parameter)
         {
-            if (_mainViewModel.UrlText != "" && _mainViewModel.UrlText != null)
-            {
-                var urlName = Path.GetFileName(_mainViewModel.UrlText);
-                _mainViewModel.Downloads.Add(new Download { Name = urlName, Progress = 0 });
-                _mainViewModel.UrlText = "";
-            }
+            MessageBox.Show("CommandStopDownloading executed");
         }
     }
 }

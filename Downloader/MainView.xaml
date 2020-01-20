@@ -24,7 +24,7 @@
                     <GridViewColumn Width="70" Header="Start">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button>
+                                <Button Command="{Binding StartDownloading}">
                                     <StackPanel>
                                         <Image Height="20px" Source="Images/play.png"/>
                                     </StackPanel>
@@ -35,7 +35,7 @@
                     <GridViewColumn Width="70" Header="Cancel">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button>
+                                <Button Command="{Binding StopDownloading}">
                                     <StackPanel>
                                         <Image Height="20px" Source="Images/stop.png"/>
                                     </StackPanel>

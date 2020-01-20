@@ -28,7 +28,7 @@ namespace Downloader
         public void Execute(object parameter)
         {
 
-            string filename = Path.GetFileName(_mainViewModel.UrlText);
+            Console.WriteLine(parameter.ToString());
             
         }
     }
