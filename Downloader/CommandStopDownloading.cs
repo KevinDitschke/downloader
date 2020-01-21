@@ -5,13 +5,15 @@ namespace Downloader
 {
     class CommandStopDownloading : ICommand
     {
-        private readonly DownloadViewModel _download;
+        private readonly IDownloader _downloader;
+        private readonly DownloadViewModel _downloadViewModel;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandStopDownloading(DownloadViewModel download)
+        public CommandStopDownloading(IDownloader downloader, DownloadViewModel downloadViewModel)
         {
-            _download = download;
+            _downloader = downloader;
+            _downloadViewModel = downloadViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -22,7 +24,7 @@ namespace Downloader
         public void Execute(object parameter)
         {
 
-            _download.StopDownload();
+            _downloader.Stop();
             
         }
     }

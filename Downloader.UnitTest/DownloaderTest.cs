@@ -3,17 +3,23 @@
 namespace Downloader.UnitTest
 {
     [TestFixture]
-    public class UnitTest1
+    public class DownloaderTest
     {
+
+        // Hinzufügen zur Liste
+        // Starten / Stoppen eines Downloads
+        // Progress testen
+        // async await
+
+        //Arrange
+        //Act
+        //Assert
         [Test]
         public void Given_DownloadIsStarted_When_ButtonPressed()
         {
-            // Hinzufügen zur Liste
-            // Starten / Stoppen eines Downloads
-            // Progress testen
-            // async await
+            
 
-            throw new System.Exception();
+            
 
         }
         [Test]

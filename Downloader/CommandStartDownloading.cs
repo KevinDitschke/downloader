@@ -5,24 +5,28 @@ namespace Downloader
 {
     class CommandStartDownloading : ICommand
     {
-        private readonly DownloadViewModel _download;
+        private readonly IDownloader _downloader;
+        private readonly DownloadViewModel _downloadViewModel;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandStartDownloading(DownloadViewModel download)
+        
+        public CommandStartDownloading(IDownloader downloader, DownloadViewModel downloadViewModel)
         {
-            _download = download;
+            _downloader = downloader;
+            _downloadViewModel = downloadViewModel;
         }
 
         public bool CanExecute(object parameter)
         {
-            return true;
+
+            return true; ;
         }
 
         public void Execute(object parameter)
         {
 
-            _download.StartDownload();
+            _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name);
             
             
         }
