@@ -7,17 +7,16 @@ namespace Downloader
     class CommandStartDownloading : ICommand
     {
         private readonly IDownloader _downloader;
-        private readonly string _url;
-        private readonly string _name;
+        private readonly DownloadViewModel _downloadViewModel;
 
         public event EventHandler CanExecuteChanged;
 
 
-        public CommandStartDownloading(IDownloader downloader, string url, string name)
+        public CommandStartDownloading(IDownloader downloader, DownloadViewModel downloadViewModel)
         {
             _downloader = downloader;
-            _url = url;
-            _name = name;
+            _downloadViewModel = downloadViewModel;
+            
         }
 
         public bool CanExecute(object parameter)
@@ -28,8 +27,9 @@ namespace Downloader
 
         public void Execute(object parameter)
         {
-            
-            _downloader.Start(_url, _name);
+            Progress<int> progress = new Progress<int>(value => { _downloadViewModel.Progress = value; });
+
+            _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name, progress);
             
             
         }

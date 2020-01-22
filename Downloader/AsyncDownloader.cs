@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -15,35 +16,16 @@ namespace Downloader
         HttpClient client = new HttpClient();
         CancellationTokenSource tokenSource;
         public event PropertyChangedEventHandler PropertyChanged;
-        object _obj;
-        private static int _progress;
 
-
-        public static int Progress
-        {
-            get
-            {
-                return _progress;
-            }
-            set
-            {
-                _progress = value;
-            }
-        }
-        Progress<int> progress = new Progress<int>(value => { Progress = value; });
-
-
-
-
-        public async void Start(string url, string name)
+        public async void Start(string url, string name, Progress<int> progress)
         {
             tokenSource = new CancellationTokenSource();
             CancellationToken ct = tokenSource.Token;
-            
+
 
             try
             {
-                int status = await GetFileAsync(ct, url, name, progress);
+                int status = await GetFileAsync(url, name, progress, ct);
             }
             catch (TaskCanceledException e)
             {
@@ -61,21 +43,37 @@ namespace Downloader
                 tokenSource.Cancel();
         }
 
-        private async Task<int> GetFileAsync(CancellationToken ct, string url, string name, IProgress<int> progress)
+        private async Task<int> GetFileAsync(string url, string name, IProgress<int> progress, CancellationToken ct)
         {
 
             var GetTask = client.GetAsync(url, ct);
+            var webRequest = HttpWebRequest.Create(url);
+
+            webRequest.Method = "HEAD";
+
+            using (var webResponse = webRequest.GetResponse())
+            {
+
+                var fileSize = webResponse.Headers.Get("Content-Length");
+                var fileSizeInMB = Math.Round(Convert.ToDouble(fileSize));
+
+                MessageBox.Show(fileSize.ToString());
+
+            }
+
             await Task.Delay(200);
             await GetTask;
             if (!GetTask.Result.IsSuccessStatusCode)
             {
                 return 1;
             }
-
             using (var fs = new FileStream(filePath + name, FileMode.Create))
             {
                 var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
+
                 progress?.Report(100); //Anpassen
+
+
                 await ResponseTask;
             }
 
@@ -87,11 +85,6 @@ namespace Downloader
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        }
-
-        public int GetProgress()
-        {
-            return Progress;
         }
     }
 }

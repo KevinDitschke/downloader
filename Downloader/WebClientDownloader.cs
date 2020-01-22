@@ -19,7 +19,7 @@ namespace Downloader
 
         private string _name;
         
-        public void Start(string url, string name)
+        public void Start(string url, string name, Progress <int> progress)
         {
             client = new WebClient();
             if (!client.IsBusy)
