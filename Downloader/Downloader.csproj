@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AsyncDownloader.cs" />
     <Compile Include="CommandStartDownloading.cs" />
     <Page Include="MainView.xaml">
       <Generator>MSBuild:Compile</Generator>

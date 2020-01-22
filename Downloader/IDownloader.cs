@@ -11,5 +11,6 @@ namespace Downloader
 
         void Start(string url, string name);
         void Stop();
+        int GetProgress();
     }
 }

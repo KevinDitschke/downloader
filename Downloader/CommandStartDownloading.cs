@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Downloader
@@ -6,15 +7,17 @@ namespace Downloader
     class CommandStartDownloading : ICommand
     {
         private readonly IDownloader _downloader;
-        private readonly DownloadViewModel _downloadViewModel;
+        private readonly string _url;
+        private readonly string _name;
 
         public event EventHandler CanExecuteChanged;
 
-        
-        public CommandStartDownloading(IDownloader downloader, DownloadViewModel downloadViewModel)
+
+        public CommandStartDownloading(IDownloader downloader, string url, string name)
         {
             _downloader = downloader;
-            _downloadViewModel = downloadViewModel;
+            _url = url;
+            _name = name;
         }
 
         public bool CanExecute(object parameter)
@@ -25,8 +28,8 @@ namespace Downloader
 
         public void Execute(object parameter)
         {
-
-            _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name);
+            
+            _downloader.Start(_url, _name);
             
             
         }

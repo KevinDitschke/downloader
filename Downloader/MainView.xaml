@@ -25,7 +25,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Focusable="False" Content="Start" Command="{Binding StartDownloading}"/>
+                                    <Button Focusable="False" Content="Start" Command="{Binding StartDownloading}" CommandParameter="{Binding}"/>
                                 </StackPanel>
                                 </DataTemplate>
                         </GridViewColumn.CellTemplate>

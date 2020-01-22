@@ -75,10 +75,15 @@ namespace Downloader
 
         private void WebClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-
+            
             Progress = e.ProgressPercentage;
             Console.WriteLine(e.ProgressPercentage + "% | " + e.BytesReceived + " bytes out of " + e.TotalBytesToReceive + " bytes retrieven.");
 
+        }
+
+        public int GetProgress()
+        {
+            throw new NotImplementedException();
         }
     }
 }
