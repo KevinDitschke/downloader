@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -7,12 +8,12 @@ namespace Downloader
     public class CommandStartDownloading : ICommand
     {
         private readonly IDownloader _downloader;
-        private readonly DownloadViewModel _downloadViewModel;
+        private readonly IDownloadViewModel _downloadViewModel;
 
         public event EventHandler CanExecuteChanged;
 
 
-        public CommandStartDownloading(IDownloader downloader, DownloadViewModel downloadViewModel)
+        public CommandStartDownloading(IDownloader downloader, IDownloadViewModel downloadViewModel)
         {
             _downloader = downloader;
             _downloadViewModel = downloadViewModel;

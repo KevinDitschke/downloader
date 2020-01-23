@@ -79,7 +79,7 @@ namespace Downloader
         {
             
             
-            _progress?.Report((double)e.ProgressPercentage);
+            _progress?.Report(e.ProgressPercentage);
             Console.WriteLine(e.ProgressPercentage + "% | " + e.BytesReceived + " bytes out of " + e.TotalBytesToReceive + " bytes retrieven.");
 
         }

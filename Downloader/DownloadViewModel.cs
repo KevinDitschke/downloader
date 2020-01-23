@@ -4,8 +4,8 @@ using System.Runtime.CompilerServices;
 
 namespace Downloader
 {
-    public class DownloadViewModel : INotifyPropertyChanged
-    {       
+    public class DownloadViewModel : INotifyPropertyChanged, IDownloadViewModel
+    {
         private double _progress;
 
         public double Progress
@@ -24,16 +24,16 @@ namespace Downloader
         public string Name { get; set; }
         public string URL { get; set; }
 
-        
+
 
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
-        
+
         public DownloadViewModel(IDownloader downloader)
         {
             StartDownloading = new CommandStartDownloading(downloader, this);
             StopDownloading = new CommandStopDownloading(downloader);
-            
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
