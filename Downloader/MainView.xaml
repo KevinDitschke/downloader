@@ -17,7 +17,7 @@
                     <GridViewColumn Width="260" Header="Progress">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Width="260"  Height="20px" Value="{Binding Progress}"/>
+                                <ProgressBar Maximum="1" Width="260"  Height="20px" Value="{Binding Progress}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

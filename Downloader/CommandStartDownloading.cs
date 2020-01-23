@@ -27,7 +27,7 @@ namespace Downloader
 
         public void Execute(object parameter)
         {
-            Progress<int> progress = new Progress<int>(value => { _downloadViewModel.Progress = value; });
+            var progress = new Progress<double>(value => { _downloadViewModel.Progress = value; });
 
             _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name, progress);
             

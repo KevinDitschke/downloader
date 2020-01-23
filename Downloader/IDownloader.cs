@@ -9,7 +9,7 @@ namespace Downloader
     interface IDownloader
     {
 
-        void Start(string url, string name, Progress<int> progress);
+        void Start(string url, string name, Progress<double> progress);
         void Stop();
     }
 }

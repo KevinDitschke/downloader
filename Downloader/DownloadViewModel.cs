@@ -6,9 +6,9 @@ namespace Downloader
 {
     class DownloadViewModel : INotifyPropertyChanged
     {       
-        private int _progress;
+        private double _progress;
 
-        public int Progress
+        public double Progress
         {
             get
             {

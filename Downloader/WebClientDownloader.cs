@@ -15,16 +15,18 @@ namespace Downloader
         
         WebClient client;
         public string filePath = @"C:\testi";
-        public int Progress { get; set; }
+        
+        Progress<double> _progress;
 
         private string _name;
         
-        public void Start(string url, string name, Progress <int> progress)
+        public void Start(string url, string name, Progress <double> progress)
         {
             client = new WebClient();
             if (!client.IsBusy)
             {
                 _name = name;
+                _progress = progress;
                 client.DownloadProgressChanged += WebClientDownloadProgressChanged;
                 client.DownloadFileCompleted += WebClientDownloadFileCompleted;
                 client.DownloadFileAsync(new Uri(url), filePath + "/" + name);
@@ -67,7 +69,7 @@ namespace Downloader
             }
             finally
             {
-                Progress = 0;
+                
                 client.Dispose();
                 client = null;
             }
@@ -76,7 +78,7 @@ namespace Downloader
         private void WebClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             
-            Progress = e.ProgressPercentage;
+            var pp = e.ProgressPercentage; //FIXIT
             Console.WriteLine(e.ProgressPercentage + "% | " + e.BytesReceived + " bytes out of " + e.TotalBytesToReceive + " bytes retrieven.");
 
         }
