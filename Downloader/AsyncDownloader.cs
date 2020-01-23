@@ -8,21 +8,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace Downloader
 {
-    class AsyncDownloader : IDownloader, INotifyPropertyChanged
+    class AsyncDownloader : IDownloader
     {
-        public string filePath = @"C:\testi\";
+        public string filePath = @"C:\testi\";        
         HttpClient client = new HttpClient();
         CancellationTokenSource tokenSource;
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        
         public async void Start(string url, string name, Progress<int> progress)
         {
             tokenSource = new CancellationTokenSource();
             CancellationToken ct = tokenSource.Token;
-
-
+            
             try
             {
                 int status = await GetFileAsync(url, name, progress, ct);
@@ -67,9 +66,13 @@ namespace Downloader
             {
                 return 1;
             }
+
+            MessageBox.Show(GetTask.Status.ToString());
             using (var fs = new FileStream(filePath + name, FileMode.Create))
             {
                 var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
+
+                MessageBox.Show(ResponseTask.Status.ToString());
 
                 progress?.Report(100); //Anpassen
 
@@ -80,11 +83,6 @@ namespace Downloader
             return 0;
 
         }
-
-        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        }
+               
     }
 }
