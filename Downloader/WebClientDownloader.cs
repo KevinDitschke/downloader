@@ -16,18 +16,18 @@ namespace Downloader
         WebClient client;
         public string filePath = @"C:\testi";
         
-        Progress<double> _progress;
+        IProgress<double> _progress;
 
         private string _name;
         
-        public void Start(string url, string name, Progress <double> progress)
+        public void Start(string url, string name, IProgress <double> progress)
         {
             client = new WebClient();
             if (!client.IsBusy)
             {
                 _name = name;
                 _progress = progress;
-                client.DownloadProgressChanged += WebClientDownloadProgressChanged;
+                client.DownloadProgressChanged += WebClientDownloadProgressChanged;                
                 client.DownloadFileCompleted += WebClientDownloadFileCompleted;
                 client.DownloadFileAsync(new Uri(url), filePath + "/" + name);
             }
@@ -78,7 +78,8 @@ namespace Downloader
         private void WebClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             
-            var pp = e.ProgressPercentage; //FIXIT
+            
+            _progress?.Report((double)e.ProgressPercentage);
             Console.WriteLine(e.ProgressPercentage + "% | " + e.BytesReceived + " bytes out of " + e.TotalBytesToReceive + " bytes retrieven.");
 
         }

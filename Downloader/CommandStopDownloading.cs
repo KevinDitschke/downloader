@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Downloader
 {
-    class CommandStopDownloading : ICommand
+    public class CommandStopDownloading : ICommand
     {
         private readonly IDownloader _downloader;
 

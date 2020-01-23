@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Downloader
 {
-    class DownloadViewModel : INotifyPropertyChanged
+    public class DownloadViewModel : INotifyPropertyChanged
     {       
         private double _progress;
 

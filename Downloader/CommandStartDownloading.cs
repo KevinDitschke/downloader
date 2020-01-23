@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Downloader
 {
-    class CommandStartDownloading : ICommand
+    public class CommandStartDownloading : ICommand
     {
         private readonly IDownloader _downloader;
         private readonly DownloadViewModel _downloadViewModel;
@@ -25,7 +25,7 @@ namespace Downloader
             return true; ;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             var progress = new Progress<double>(value => { _downloadViewModel.Progress = value; });
 

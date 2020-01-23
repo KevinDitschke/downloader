@@ -2,7 +2,6 @@ C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\MainView.g.
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\App.g.cs
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader_MarkupCompile.cache
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader_MarkupCompile.lref
-C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csprojAssemblyReference.cache
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Downloader.exe.config
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Downloader.exe
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Downloader.pdb

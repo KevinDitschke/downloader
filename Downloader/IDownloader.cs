@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Downloader
 {
-    interface IDownloader
+    public interface IDownloader
     {
 
-        void Start(string url, string name, Progress<double> progress);
+        void Start(string url, string name, IProgress<double> progress);
         void Stop();
     }
 }

@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Downloader
 {
-    class CommandAddToList : ICommand
+    public class CommandAddToList : ICommand
     {
         private readonly MainViewModel _mainViewModel;
         public event EventHandler CanExecuteChanged;
