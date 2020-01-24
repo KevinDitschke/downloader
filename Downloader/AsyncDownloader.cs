@@ -17,19 +17,23 @@ namespace Downloader
 
         CancellationTokenSource tokenSource;
 
-        public async void Start(string url, string name, IProgress<double> progress)
+        public async Task Start(string url, string name, IProgress<double> progress)
         {
             tokenSource = new CancellationTokenSource();
             CancellationToken ct = tokenSource.Token;
 
             try
             {
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(filePath);
+                
                 using (var file = new FileStream(filePath + name, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
 
                     await GetFileAsync(file, url, name, progress, ct);
 
                 }
+
             }
             catch (TaskCanceledException)
             {
@@ -82,6 +86,8 @@ namespace Downloader
                 }
 
             }
+
+
 
             return;
         }

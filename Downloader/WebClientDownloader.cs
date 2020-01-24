@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace Downloader
 {
-    class WebClientDownloader : IDownloader
+    class WebClientDownloader
     {
         
         WebClient client;
@@ -31,6 +31,7 @@ namespace Downloader
                 client.DownloadFileCompleted += WebClientDownloadFileCompleted;
                 client.DownloadFileAsync(new Uri(url), filePath + "/" + name);
             }
+            
 
         }
 

@@ -28,7 +28,7 @@ namespace Downloader.UnitTest
 
         }
         [Test]
-        public void Given_DownloadUrl_When_DownloadIsAddedToTheOtherDownloads_Then_DownloadIsAppendedToOtherDownloads()
+        public async void Given_DownloadUrl_When_DownloadIsAddedToTheOtherDownloads_Then_DownloadIsAppendedToOtherDownloads()
         {
 
             //Arrange

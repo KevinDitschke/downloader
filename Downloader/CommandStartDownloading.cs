@@ -30,7 +30,7 @@ namespace Downloader
         {
             var progress = new Progress<double>(value => { _downloadViewModel.Progress = value; });
 
-            _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name, progress);
+            await _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name, progress);
             
             
         }

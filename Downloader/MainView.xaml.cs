@@ -16,7 +16,7 @@ namespace Downloader
             var builder = new ContainerBuilder();
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<DownloadViewModel>();
-            builder.RegisterType<WebClientDownloader>().As<IDownloader>();
+            builder.RegisterType<AsyncDownloader>().As<IDownloader>();
 
             container = builder.Build();
             this.DataContext = new MainViewModel();
