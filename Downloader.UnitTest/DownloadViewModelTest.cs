@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using System;
 
 namespace Downloader.UnitTest
 {
@@ -28,7 +29,7 @@ namespace Downloader.UnitTest
 
         }
         [Test]
-        public async void Given_DownloadUrl_When_DownloadIsAddedToTheOtherDownloads_Then_DownloadIsAppendedToOtherDownloads()
+        public void Given_DownloadUrl_When_DownloadIsAddedToTheOtherDownloads_Then_DownloadIsAppendedToOtherDownloads()
         {
 
             //Arrange
@@ -49,16 +50,21 @@ namespace Downloader.UnitTest
         {
 
             //Arrange
-            var downloader = new AsyncDownloader();
             var downloadViewModel = CreateIDownloadViewModel(0, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
 
-            CommandStartDownloading commandStartDownloading = new CommandStartDownloading(downloader, downloadViewModel);            
+            var mockedDownloader = new Mock<IDownloader>();
+            mockedDownloader
+                .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()))
+                .Callback((string url, string name, IProgress<double> progress) => progress.Report(10.0));
+
+            CommandStartDownloading commandStartDownloading = new CommandStartDownloading(mockedDownloader.Object, downloadViewModel.Object);            
 
             //Act
             commandStartDownloading.Execute(null);
 
             //Assert
-            downloadViewModel.Progress.Should().BeGreaterThan(0.0);
+            downloadViewModel.VerifySet(x => x.Progress = 10.0, Times.Once);
+            mockedDownloader.Verify(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()), Times.Once);
 
         }
         [Test]
@@ -70,7 +76,7 @@ namespace Downloader.UnitTest
         }
 
         
-        IDownloadViewModel CreateIDownloadViewModel(double progress, string url, string name){
+        Mock<IDownloadViewModel> CreateIDownloadViewModel(double progress, string url, string name){
             var mockedDownloadViewModel = new Mock<IDownloadViewModel>();
 
             mockedDownloadViewModel
@@ -83,7 +89,7 @@ namespace Downloader.UnitTest
             mockedDownloadViewModel
                 .Setup(x => x.Name)
                 .Returns(name);
-            return mockedDownloadViewModel.Object;
+            return mockedDownloadViewModel;
         }
 
         

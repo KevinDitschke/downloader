@@ -24,8 +24,6 @@ namespace Downloader
         public string Name { get; set; }
         public string URL { get; set; }
 
-
-
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
 

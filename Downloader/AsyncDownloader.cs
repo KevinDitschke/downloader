@@ -26,7 +26,7 @@ namespace Downloader
             {
                 if (!Directory.Exists(filePath))
                     Directory.CreateDirectory(filePath);
-                
+
                 using (var file = new FileStream(filePath + name, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
 
@@ -86,8 +86,6 @@ namespace Downloader
                 }
 
             }
-
-
 
             return;
         }
