@@ -17,17 +17,7 @@ namespace Downloader.UnitTest
         //Arrange
         //Act
         //Assert
-        [Test]
-        public void Given_APreparedDownload_When_TheDownloadIsStarted_Then_FileIsDownloading()
-        {
-            //Arrange
-            //DownloadViewModel downloadViewModel = new DownloadViewModel(Mock.Of<IDownloader>());
-            //var mock = new Mock<IDownloader>();
-            //mock.Setup(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", ))
-
-            
-
-        }
+               
         [Test]
         public void Given_DownloadUrl_When_DownloadIsAddedToTheOtherDownloads_Then_DownloadIsAppendedToOtherDownloads()
         {
@@ -42,7 +32,7 @@ namespace Downloader.UnitTest
 
             //Assert
             mainViewModel.Downloads.Should().HaveCount(1);
-                        
+
         }
 
         [Test]
@@ -57,7 +47,7 @@ namespace Downloader.UnitTest
                 .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()))
                 .Callback((string url, string name, IProgress<double> progress) => progress.Report(10.0));
 
-            CommandStartDownloading commandStartDownloading = new CommandStartDownloading(mockedDownloader.Object, downloadViewModel.Object);            
+            CommandStartDownloading commandStartDownloading = new CommandStartDownloading(mockedDownloader.Object, downloadViewModel.Object);
 
             //Act
             commandStartDownloading.Execute(null);
@@ -67,22 +57,30 @@ namespace Downloader.UnitTest
             mockedDownloader.Verify(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()), Times.Once);
 
         }
+        
         [Test]
-        public void Given_AsyncAwait_When_DownloadHasStarted()
+        public void Given_Downloading_When_DownloadButtonIsPressed_Then_DownloadGetsStopped()
         {
+            //Arrange
+            var mockedDownloader = CreateIDownloader();
 
+            CommandStopDownloading commandStopDownloading = new CommandStopDownloading(mockedDownloader.Object);
 
+            //Act
+            commandStopDownloading.Execute(null);
 
+            //Assert
+            mockedDownloader.Verify(x => x.Stop(), Times.AtMostOnce);
         }
 
-        
-        Mock<IDownloadViewModel> CreateIDownloadViewModel(double progress, string url, string name){
+
+        Mock<IDownloadViewModel> CreateIDownloadViewModel(double progress, string url, string name)
+        {
             var mockedDownloadViewModel = new Mock<IDownloadViewModel>();
 
             mockedDownloadViewModel
                 .Setup(x => x.Progress)
                 .Returns(progress);
-
             mockedDownloadViewModel
                 .Setup(x => x.URL)
                 .Returns(url);
@@ -92,6 +90,16 @@ namespace Downloader.UnitTest
             return mockedDownloadViewModel;
         }
 
-        
+        Mock<IDownloader> CreateIDownloader()
+        {
+            var mockedIDownloader = new Mock<IDownloader>();
+
+            mockedIDownloader
+                .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()));
+            mockedIDownloader
+                .Setup(x => x.Stop());
+
+            return mockedIDownloader;
+        }
     }
 }

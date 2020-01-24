@@ -71,9 +71,6 @@
     </Compile>
     <Compile Include="CommandStopDownloading.cs" />
     <Compile Include="IDownloadViewModel.cs" />
-    <Compile Include="TestGrid.xaml.cs">
-      <DependentUpon>TestGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="WebClientDownloader.cs" />
     <Compile Include="DownloadViewModel.cs" />
     <Compile Include="IDownloader.cs" />
@@ -81,10 +78,6 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TestGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainViewModel.cs" />

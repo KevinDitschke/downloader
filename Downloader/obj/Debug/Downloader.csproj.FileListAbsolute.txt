@@ -16,5 +16,3 @@ C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Autofac.pdb
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Autofac.xml
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csproj.CopyComplete
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csprojAssemblyReference.cache
-C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\TestGrid.g.cs
-C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\TestGrid.baml

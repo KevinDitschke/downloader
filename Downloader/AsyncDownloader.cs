@@ -79,12 +79,17 @@ namespace Downloader
                         totalBytesRead += bytesRead;
                         var relativeProgress = new Progress<int>(totalBytes => progress.Report(((int)totalBytes / (int)contentLength.Value)));
 
+                        
                         if (++i % 1000 == 0)
                             progress?.Report((double)totalBytesRead / contentLength.Value);
+                        if (totalBytesRead == contentLength.Value)
+                            MessageBox.Show("Download completed!");
+
                     }
-
+                    MessageBox.Show("Download completed!");
+                    
                 }
-
+                
             }
 
             return;
