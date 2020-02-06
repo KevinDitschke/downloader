@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Downloader
 {
@@ -16,11 +17,21 @@ namespace Downloader
             var builder = new ContainerBuilder();
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<DownloadViewModel>();
-            builder.RegisterType<AsyncDownloader>().As<IDownloader>();
+            builder.RegisterType<Messenger>().As<IMessenger>();
+            builder.RegisterType<CommandAddToList>().As<ICommand>();
+            builder.RegisterType<CommandStartDownloading>().As<ICommand>();
+            builder.RegisterType<CommandStopDownloading>().As<ICommand>();
+            builder.RegisterType<AsyncDownloader>().As<IDownloader>();       
 
             container = builder.Build();
-            this.DataContext = new MainViewModel();
+
+            using(var scope = container.BeginLifetimeScope())
+            {                
+                this.DataContext = scope.Resolve<MainViewModel>();
+            }           
+            
         }
 
     }
+
 }

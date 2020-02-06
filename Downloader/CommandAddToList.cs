@@ -8,11 +8,14 @@ namespace Downloader
     public class CommandAddToList : ICommand
     {
         private readonly MainViewModel _mainViewModel;
+        private readonly IMessenger _messenger;
+
         public event EventHandler CanExecuteChanged;
 
-        public CommandAddToList(MainViewModel mainViewModel)
+        public CommandAddToList(MainViewModel mainViewModel, IMessenger messenger)
         {
             _mainViewModel = mainViewModel;
+            _messenger = messenger;
         }
         public bool CanExecute(object parameter)
         {
@@ -35,7 +38,7 @@ namespace Downloader
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid URL!","Warning!");
+                    _messenger.DisplayMessage("Please enter a valid URL!","Warning!");
                 }
             }
         }

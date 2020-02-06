@@ -71,6 +71,8 @@
     </Compile>
     <Compile Include="CommandStopDownloading.cs" />
     <Compile Include="IDownloadViewModel.cs" />
+    <Compile Include="IMessenger.cs" />
+    <Compile Include="Messenger.cs" />
     <Compile Include="WebClientDownloader.cs" />
     <Compile Include="DownloadViewModel.cs" />
     <Compile Include="IDownloader.cs" />

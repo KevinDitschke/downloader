@@ -17,7 +17,7 @@ namespace Downloader
 
         CancellationTokenSource tokenSource;
 
-        public async Task Start(string url, string name, IProgress<double> progress)
+        public async Task<bool> Start(string url, string name, IProgress<double> progress)
         {
             tokenSource = new CancellationTokenSource();
             CancellationToken ct = tokenSource.Token;
@@ -30,24 +30,25 @@ namespace Downloader
                 using (var file = new FileStream(filePath + name, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
 
-                    await GetFileAsync(file, url, name, progress, ct);
-
+                    var result = await GetFileAsync(file, url, name, progress, ct);
+                    return true;
                 }
+                
 
             }
             catch (TaskCanceledException)
             {
 
-                MessageBox.Show("The Download has been stopped!");
+                return false;
 
             }
             catch (IOException)
             {
 
-                MessageBox.Show("You are already downloading that file!");
+                return false;
 
             }
-            tokenSource = null;
+            
 
         }
 
@@ -57,7 +58,7 @@ namespace Downloader
                 tokenSource.Cancel();
         }
 
-        private async Task GetFileAsync(FileStream file, string url, string name, IProgress<double> progress, CancellationToken ct)
+        private async Task<bool> GetFileAsync(FileStream file, string url, string name, IProgress<double> progress, CancellationToken ct)
         {
 
             HttpClient client = new HttpClient();
@@ -79,20 +80,16 @@ namespace Downloader
                         totalBytesRead += bytesRead;
                         var relativeProgress = new Progress<int>(totalBytes => progress.Report(((int)totalBytes / (int)contentLength.Value)));
 
-                        
                         if (++i % 1000 == 0)
                             progress?.Report((double)totalBytesRead / contentLength.Value);
-                        if (totalBytesRead == contentLength.Value)
-                            MessageBox.Show("Download completed!");
 
+                        if (totalBytesRead == contentLength.Value)
+                            return true;
                     }
-                    MessageBox.Show("Download completed!");
-                    
                 }
-                
             }
 
-            return;
+            return false;
         }
 
     }

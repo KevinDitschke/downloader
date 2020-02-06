@@ -9,7 +9,7 @@ namespace Downloader
     public interface IDownloader
     {
 
-        Task Start(string url, string name, IProgress<double> progress);
+        Task<bool> Start(string url, string name, IProgress<double> progress);
         void Stop();
     }
 }

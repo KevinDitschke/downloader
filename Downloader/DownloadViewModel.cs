@@ -29,8 +29,8 @@ namespace Downloader
 
         public DownloadViewModel(IDownloader downloader)
         {
-            StartDownloading = new CommandStartDownloading(downloader, this);
-            StopDownloading = new CommandStopDownloading(downloader);
+            //StartDownloading = new CommandStartDownloading(downloader, this);
+            //StopDownloading = new CommandStopDownloading(downloader);
 
         }
 

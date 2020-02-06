@@ -29,18 +29,14 @@ namespace Downloader
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if(PropertyChanged != null)
-            {
 
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MainViewModel()
+        public MainViewModel(CommandAddToList addToList)
         {
             
-            AddToList = new CommandAddToList(this);
+            AddToList = addToList;
             
 
         }
