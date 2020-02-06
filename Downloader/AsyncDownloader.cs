@@ -33,7 +33,7 @@ namespace Downloader
                     var result = await GetFileAsync(file, url, name, progress, ct);
                     return true;
                 }
-                
+
 
             }
             catch (TaskCanceledException)
@@ -48,7 +48,7 @@ namespace Downloader
                 return false;
 
             }
-            
+
 
         }
 

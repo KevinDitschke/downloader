@@ -9,19 +9,22 @@ namespace Downloader
     {
         private MainViewModel _mainViewModel;
         private readonly IMessenger _messenger;
-        private readonly Adder _adder;
+        private IDownloadViewModel _downloadViewModel;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandAddToList(IMessenger messenger, Adder adder)
+        public CommandAddToList(IMessenger messenger, IDownloadViewModel downloadViewModel)
         {
+
             _messenger = messenger;
-            _adder = adder;
+            _downloadViewModel = downloadViewModel;
+
         }
 
         public void InitializeWith(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
+            
         }
 
         public bool CanExecute(object parameter)
@@ -33,22 +36,18 @@ namespace Downloader
         {
             if (_mainViewModel.UrlText != "" && _mainViewModel.UrlText != null)
             {
-                if (Uri.IsWellFormedUriString(_mainViewModel.UrlText, UriKind.Absolute)) { 
-                    //var urlName = Path.GetFileName(_mainViewModel.UrlText);
-
-                    _adder.InitializeWith(_mainViewModel);
-                    _adder.AddToList();
-                    //_mainViewModel.Downloads.Add(new DownloadViewModel(new AsyncDownloader())
-                    //{
-                    //    Name = urlName,
-                    //    Progress = 0,
-                    //    URL = _mainViewModel.UrlText
-                    //});
-                    //_mainViewModel.UrlText = "";
+                if (Uri.IsWellFormedUriString(_mainViewModel.UrlText, UriKind.Absolute))
+                {
+                    var urlName = Path.GetFileName(_mainViewModel.UrlText);
+                    _downloadViewModel.Name = urlName;
+                    _downloadViewModel.Progress = 0;
+                    _downloadViewModel.URL = _mainViewModel.UrlText;
+                    _mainViewModel.Downloads.Add(_downloadViewModel);
+                    _mainViewModel.UrlText = "";
                 }
                 else
                 {
-                    _messenger.DisplayMessage("Please enter a valid URL!","Warning!");
+                    _messenger.DisplayMessage("Please enter a valid URL!", "Warning!");
                 }
             }
         }

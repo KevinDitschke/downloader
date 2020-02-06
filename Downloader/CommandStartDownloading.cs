@@ -8,24 +8,23 @@ namespace Downloader
 {
     public class CommandStartDownloading : ICommand
     {
-        private readonly IDownloader _downloader;
+        private IDownloader _downloader;
         private IDownloadViewModel _downloadViewModel;
         private readonly IMessenger _messenger;
 
         public event EventHandler CanExecuteChanged;
 
 
-        public CommandStartDownloading(IDownloader downloader, IMessenger messenger)
+        public CommandStartDownloading(IMessenger messenger)
         {
-            _downloader = downloader;
-            
             _messenger = messenger;
         }
 
-        public void InitializeWith(IDownloadViewModel downloadViewModel)
+        public void InitializeWith(IDownloadViewModel downloadViewModel, IDownloader downloader)
         {
 
             _downloadViewModel = downloadViewModel;
+            _downloader = downloader;
         }
 
         public bool CanExecute(object parameter)
@@ -38,13 +37,14 @@ namespace Downloader
         {
             var progress = new Progress<double>(value => { _downloadViewModel.Progress = value; });
 
-            try { 
-            var success = await _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name, progress);
+            try
+            {
+                var success = await _downloader.Start(_downloadViewModel.URL, _downloadViewModel.Name, progress);
 
                 if (success)
                     _messenger.DisplayMessage("The file was successfully downloaded!", "Success!");
                 else if (!success)
-                    _messenger.DisplayMessage("Something went wrong!", "Error!");
+                    _messenger.DisplayMessage("Download has been stopped!", "Error!");
             }
             catch (HttpRequestException)
             {
@@ -52,7 +52,7 @@ namespace Downloader
                 _messenger.DisplayMessage("Verbindungsfehler", "Error!");
 
             }
-            
+
         }
     }
 }

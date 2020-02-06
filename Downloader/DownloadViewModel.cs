@@ -26,16 +26,13 @@ namespace Downloader
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
 
-        public DownloadViewModel(IDownloader downloader, CommandStartDownloading commandStartDownloading, CommandStopDownloading commandStopDownloading)
-        {
-            //StartDownloading = new CommandStartDownloading(downloader, this);
-            //StopDownloading = new CommandStopDownloading(downloader);
-
+        public DownloadViewModel(CommandStartDownloading commandStartDownloading, CommandStopDownloading commandStopDownloading, IDownloader downloader)
+        {       
             StartDownloading = commandStartDownloading;
             StopDownloading = commandStopDownloading;
 
-            StartDownloading.InitializeWith(this);
-
+            StartDownloading.InitializeWith(this, downloader);
+            StopDownloading.InitializeWith(downloader);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

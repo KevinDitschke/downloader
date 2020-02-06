@@ -5,14 +5,10 @@ namespace Downloader
 {
     public class CommandStopDownloading : ICommand
     {
-        private readonly IDownloader _downloader;
+        private IDownloader _downloader;
 
         public event EventHandler CanExecuteChanged;
-
-        public CommandStopDownloading(IDownloader downloader)
-        {
-            _downloader = downloader;
-        }
+        
 
         public bool CanExecute(object parameter)
         {
@@ -24,6 +20,11 @@ namespace Downloader
 
             _downloader.Stop();
             
+        }
+
+        internal void InitializeWith(IDownloader downloader)
+        {
+            _downloader = downloader;
         }
     }
 }

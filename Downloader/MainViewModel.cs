@@ -8,12 +8,11 @@ namespace Downloader
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<DownloadViewModel> Downloads { get; set; } = new ObservableCollection<DownloadViewModel>();
+        public ObservableCollection<IDownloadViewModel> Downloads { get; set; } = new ObservableCollection<IDownloadViewModel>();
 
         public CommandAddToList AddToList { get; set; }
 
         private string _urlText;
-        
         public string UrlText
         {
             get
@@ -33,14 +32,12 @@ namespace Downloader
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MainViewModel(CommandAddToList addToList)
+        public MainViewModel(CommandAddToList commandAddToList)
         {
-            
-            AddToList = addToList;
-
-            AddToList.InitializeWith(this);           
+            AddToList = commandAddToList;
+            AddToList.InitializeWith(this);
 
         }
-        
+
     }
 }
