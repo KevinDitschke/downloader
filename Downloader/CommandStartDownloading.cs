@@ -9,17 +9,23 @@ namespace Downloader
     public class CommandStartDownloading : ICommand
     {
         private readonly IDownloader _downloader;
-        private readonly IDownloadViewModel _downloadViewModel;
+        private IDownloadViewModel _downloadViewModel;
         private readonly IMessenger _messenger;
 
         public event EventHandler CanExecuteChanged;
 
 
-        public CommandStartDownloading(IDownloader downloader, IDownloadViewModel downloadViewModel, IMessenger messenger)
+        public CommandStartDownloading(IDownloader downloader, IMessenger messenger)
         {
             _downloader = downloader;
-            _downloadViewModel = downloadViewModel;
+            
             _messenger = messenger;
+        }
+
+        public void InitializeWith(IDownloadViewModel downloadViewModel)
+        {
+
+            _downloadViewModel = downloadViewModel;
         }
 
         public bool CanExecute(object parameter)

@@ -37,7 +37,8 @@ namespace Downloader
         {
             
             AddToList = addToList;
-            
+
+            AddToList.InitializeWith(this);           
 
         }
         

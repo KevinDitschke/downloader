@@ -16,12 +16,14 @@ namespace Downloader
 
             var builder = new ContainerBuilder();
             builder.RegisterType<MainViewModel>();
-            builder.RegisterType<DownloadViewModel>();
+            builder.RegisterType<DownloadViewModel>().As<IDownloadViewModel>();
             builder.RegisterType<Messenger>().As<IMessenger>();
-            builder.RegisterType<CommandAddToList>().As<ICommand>();
-            builder.RegisterType<CommandStartDownloading>().As<ICommand>();
-            builder.RegisterType<CommandStopDownloading>().As<ICommand>();
-            builder.RegisterType<AsyncDownloader>().As<IDownloader>();       
+            builder.RegisterType<AsyncDownloader>().As<IDownloader>();
+            builder.RegisterType<Adder>().As<IAdder>();
+            builder.RegisterType<CommandAddToList>();
+            builder.RegisterType<CommandStartDownloading>();
+            builder.RegisterType<CommandStopDownloading>();
+            
 
             container = builder.Build();
 
