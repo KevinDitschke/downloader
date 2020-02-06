@@ -7,6 +7,7 @@ namespace Downloader
     public class DownloadViewModel : INotifyPropertyChanged, IDownloadViewModel
     {
         private double _progress;
+        private readonly IDownloader _downloader;
 
         public double Progress
         {
@@ -25,6 +26,8 @@ namespace Downloader
 
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
+
+        
 
         public DownloadViewModel(CommandStartDownloading commandStartDownloading, CommandStopDownloading commandStopDownloading, IDownloader downloader)
         {       

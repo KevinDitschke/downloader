@@ -74,9 +74,9 @@ namespace Downloader
                     long totalBytesRead = 0;
                     int bytesRead;
                     int i = 0;
-                    while ((bytesRead = await download.ReadAsync(buffer, 0, buffer.Length, ct).ConfigureAwait(true)) != 0)
+                    while ((bytesRead = await download.ReadAsync(buffer, 0, buffer.Length, ct)) != 0)
                     {
-                        await file.WriteAsync(buffer, 0, bytesRead, ct).ConfigureAwait(false);
+                        await file.WriteAsync(buffer, 0, bytesRead, ct);
                         totalBytesRead += bytesRead;
                         var relativeProgress = new Progress<int>(totalBytes => progress.Report(((int)totalBytes / (int)contentLength.Value)));
 
