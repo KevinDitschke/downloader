@@ -15,3 +15,4 @@ C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csproj.CopyComplete
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.exe
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.pdb
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csprojAssemblyReference.cache

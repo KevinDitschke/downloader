@@ -7,10 +7,16 @@ namespace Downloader
     public partial class MainWindow : Window
     {
         private static IContainer container { get; set; }
+
+        private ILifetimeScope _scope;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             var builder = new ContainerBuilder();
 
             builder.RegisterType<CommandStartDownloading>();
@@ -23,10 +29,13 @@ namespace Downloader
 
             container = builder.Build();
 
-            using (var scope = container.BeginLifetimeScope())
-            {
-                this.DataContext = scope.Resolve<MainViewModel>();
-            }
+            _scope = container.BeginLifetimeScope();
+            this.DataContext = _scope.Resolve<MainViewModel>();
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _scope.Dispose();
         }
     }
 }

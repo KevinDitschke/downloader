@@ -9,15 +9,17 @@ namespace Downloader
     {
         private MainViewModel _mainViewModel;
         private readonly IMessenger _messenger;
-        private IDownloadViewModel _downloadViewModel;
+        private Func<IDownloadViewModel> _createDownloadViewModel;
 
         public event EventHandler CanExecuteChanged;
 
-        public CommandAddToList(IMessenger messenger, IDownloadViewModel downloadViewModel)
+        
+
+        public CommandAddToList(IMessenger messenger, Func<IDownloadViewModel> createDownloadViewModel)
         {
 
             _messenger = messenger;
-            _downloadViewModel = downloadViewModel;
+            _createDownloadViewModel = createDownloadViewModel;
 
         }
 
@@ -39,10 +41,12 @@ namespace Downloader
                 if (Uri.IsWellFormedUriString(_mainViewModel.UrlText, UriKind.Absolute))
                 {
                     var urlName = Path.GetFileName(_mainViewModel.UrlText);
-                    _downloadViewModel.Name = urlName;
-                    _downloadViewModel.Progress = 0;
-                    _downloadViewModel.URL = _mainViewModel.UrlText;
-                    _mainViewModel.Downloads.Add(_downloadViewModel);
+                    var downloadViewModel = _createDownloadViewModel();
+                    downloadViewModel.Name = urlName;
+                    downloadViewModel.Progress = 0;
+                    downloadViewModel.URL = _mainViewModel.UrlText;
+                    
+                    _mainViewModel.Downloads.Add(downloadViewModel);
                     _mainViewModel.UrlText = "";
                 }
                 else

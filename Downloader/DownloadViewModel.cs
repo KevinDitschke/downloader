@@ -27,10 +27,10 @@ namespace Downloader
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
 
-        
+
 
         public DownloadViewModel(CommandStartDownloading commandStartDownloading, CommandStopDownloading commandStopDownloading, IDownloader downloader)
-        {       
+        {
             StartDownloading = commandStartDownloading;
             StopDownloading = commandStopDownloading;
 
