@@ -12,25 +12,8 @@ namespace Downloader
 
         public CommandAddToList AddToList { get; set; }
 
-        private string _urlText;
-        public string UrlText
-        {
-            get
-            {
-                return _urlText;
-            }
-            set
-            {
-                _urlText = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public string UrlText { get; set; }
+        
 
         public MainViewModel(CommandAddToList commandAddToList)
         {
