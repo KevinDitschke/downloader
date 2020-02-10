@@ -16,3 +16,10 @@ C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.exe
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.pdb
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csprojAssemblyReference.cache
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Caliburn.Micro.dll
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Caliburn.Micro.Platform.Core.dll
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Caliburn.Micro.Platform.dll
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Caliburn.Micro.xml
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Caliburn.Micro.Platform.xml
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Caliburn.Micro.Platform.Core.xml
