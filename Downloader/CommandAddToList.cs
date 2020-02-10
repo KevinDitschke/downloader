@@ -11,9 +11,7 @@ namespace Downloader
         private readonly IMessenger _messenger;
         private Func<IDownloadViewModel> _createDownloadViewModel;
 
-        public event EventHandler CanExecuteChanged;
-
-        
+        public event EventHandler CanExecuteChanged;        
 
         public CommandAddToList(IMessenger messenger, Func<IDownloadViewModel> createDownloadViewModel)
         {
