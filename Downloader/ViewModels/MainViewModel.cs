@@ -13,12 +13,12 @@ namespace Downloader
         public CommandAddToList AddToList { get; set; }
 
         public string UrlText { get; set; }
-        
 
-        public MainViewModel(CommandAddToList commandAddToList)
+
+        public MainViewModel(IMessenger messenger, Func<IDownloadViewModel> createDownloadViewModel)
         {
-            AddToList = commandAddToList;
-            AddToList.InitializeWith(this);
+            AddToList = new CommandAddToList();
+            AddToList.InitializeWith(this, messenger, createDownloadViewModel);
 
         }
 

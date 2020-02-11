@@ -14,12 +14,14 @@ namespace Downloader
         public CommandStartDownloading StartDownloading { get; set; }
         public CommandStopDownloading StopDownloading { get; set; }
 
-        public DownloadViewModel(CommandStartDownloading commandStartDownloading, CommandStopDownloading commandStopDownloading, IDownloader downloader)
+        public DownloadViewModel(IDownloader downloader, IMessenger messenger)
         {
-            StartDownloading = commandStartDownloading;
-            StopDownloading = commandStopDownloading;
+            StartDownloading = new CommandStartDownloading();
+            StopDownloading = new CommandStopDownloading();
+            //StartDownloading = commandStartDownloading;
+            //StopDownloading = commandStopDownloading;
 
-            StartDownloading.InitializeWith(this, downloader);
+            StartDownloading.InitializeWith(this, downloader, messenger);
             StopDownloading.InitializeWith(downloader);
         }
 
