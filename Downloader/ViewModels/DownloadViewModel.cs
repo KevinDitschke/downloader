@@ -44,8 +44,6 @@ namespace Downloader
         public void StopDownload()
         {
             _downloader.Stop();
-
         }
-
     }
 }
