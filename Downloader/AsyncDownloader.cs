@@ -65,6 +65,9 @@ namespace Downloader
             int bufferSize = 2048;
             using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
             {
+                Console.WriteLine(response.StatusCode.ToString());
+                if (response.StatusCode.ToString() == "NotFound")
+                    return false;
                 await Task.Delay(100);
                 var contentLength = response.Content.Headers.ContentLength;
 
@@ -78,11 +81,12 @@ namespace Downloader
                     {
                         await file.WriteAsync(buffer, 0, bytesRead, ct);
                         totalBytesRead += bytesRead;
-                        //var relativeProgress = new Progress<double>(totalBytes => progress.Report(((int)totalBytes / (int)contentLength.Value)));
 
-                        if (++i % 1000 == 0)
+                        if (++i % 1000 == 0) { 
+                            Console.WriteLine("Progress " + i);
                             progress?.Report((double)totalBytesRead / contentLength.Value);
-                        
+                        }
+
                         if (totalBytesRead == contentLength.Value)
                             return true;
                     }

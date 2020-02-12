@@ -7,7 +7,7 @@
         Title="Downloader" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" >
 
     <Window.Resources>
-
+        
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

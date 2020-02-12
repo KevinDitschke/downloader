@@ -10,28 +10,38 @@ using System.Windows;
 
 namespace Downloader
 {
-    class WebClientDownloader
+    class WebClientDownloader : IDownloader
     {
-        
+
         WebClient client;
         public string filePath = @"C:\testi";
-        
+
         IProgress<double> _progress;
 
         private string _name;
-        
-        public void Start(string url, string name, IProgress <double> progress)
+
+        public async Task<bool> Start(string url, string name, IProgress<double> progress)
         {
             client = new WebClient();
             if (!client.IsBusy)
             {
-                _name = name;
-                _progress = progress;
-                client.DownloadProgressChanged += WebClientDownloadProgressChanged;                
-                client.DownloadFileCompleted += WebClientDownloadFileCompleted;
-                client.DownloadFileAsync(new Uri(url), filePath + "/" + name);
+                var result = Task<bool>.Run(() =>
+                {
+                    _name = name;
+                    _progress = progress;
+                    client.DownloadProgressChanged += WebClientDownloadProgressChanged;
+                    client.DownloadFileCompleted += WebClientDownloadFileCompleted;
+                    client.DownloadFileAsync(new Uri(url), filePath + "/" + name);
+                    
+                });
+                result.Wait();
+                return result.IsCompleted;
             }
-            
+            else
+            {
+                return false;
+            }
+
 
         }
 
@@ -70,7 +80,7 @@ namespace Downloader
             }
             finally
             {
-                
+
                 client.Dispose();
                 client = null;
             }
@@ -78,8 +88,8 @@ namespace Downloader
 
         private void WebClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            
-            
+
+
             _progress?.Report(e.ProgressPercentage);
             Console.WriteLine(e.ProgressPercentage + "% | " + e.BytesReceived + " bytes out of " + e.TotalBytesToReceive + " bytes retrieven.");
 
@@ -89,5 +99,7 @@ namespace Downloader
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
