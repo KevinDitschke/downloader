@@ -1,22 +1,18 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace Downloader
 {
-    public class MainViewModel : INotifyPropertyChanged
+
+    public class MainViewModel : PropertyChangedBase
     {
         private readonly IMessenger _messenger;
         private readonly Func<IDownloadViewModel> _createDownloadViewModel;
-
-        public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<IDownloadViewModel> Downloads { get; set; } = new ObservableCollection<IDownloadViewModel>();
 
-
         public string UrlText { get; set; }
-
 
         public MainViewModel(IMessenger messenger, Func<IDownloadViewModel> createDownloadViewModel)
         {
@@ -24,12 +20,11 @@ namespace Downloader
             _createDownloadViewModel = createDownloadViewModel;
         }
 
+
+        public bool CanAddDownloadViewModelToList => !string.IsNullOrWhiteSpace(UrlText);
         public void AddDownloadViewModelToList()
         {
-
-            var urlText = UrlText;
-            if (string.IsNullOrEmpty(urlText))
-                return;
+            var urlText = UrlText;            
 
             if (!Uri.IsWellFormedUriString(urlText, UriKind.Absolute))
             {

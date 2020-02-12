@@ -95,7 +95,6 @@
     </ApplicationDefinition>
     <Compile Include="AsyncDownloader.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Commands\CommandStartDownloading.cs" />
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,7 +103,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\CommandStopDownloading.cs" />
     <Compile Include="ViewModels\IDownloadViewModel.cs" />
     <Compile Include="IMessenger.cs" />
     <Compile Include="Messenger.cs" />
