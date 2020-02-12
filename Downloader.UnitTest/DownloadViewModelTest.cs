@@ -36,14 +36,7 @@ namespace Downloader.UnitTest
             //Arrange
             var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
 
-            var mockedDownloader = new Mock<IDownloader>();
-            mockedDownloader
-                .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()))
-                .Callback((string url, string name, IProgress<double> progress) => progress.Report(10.0));
-            downloadViewModel
-                .Setup(x => x.StartDownload());
 
-            IMessenger messagar = new Messenger();
             MainViewModel mainViewModel = CreateMainViewModel();
 
             //Act
@@ -52,8 +45,6 @@ namespace Downloader.UnitTest
 
             //Assert
             downloadViewModel.Object.Progress.Should().Be(10.0);
-            mockedDownloader.Verify(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()), Times.Once);
-
         }
 
         [Test]
