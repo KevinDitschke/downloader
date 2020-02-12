@@ -8,7 +8,7 @@ namespace Downloader.UnitTest
 {
     [TestFixture]
     public class DownloadViewModelTest
-    {        
+    {
         //Arrange
         //Act
         //Assert
@@ -16,10 +16,7 @@ namespace Downloader.UnitTest
         [Test]
         public void Given_DownloadUrl_When_DownloadIsAddedToTheOtherDownloads_Then_DownloadIsAppendedToOtherDownloadsWithCorrectPropertyValues()
         {
-
-            //Arrange
-            Messenger messenger = new Messenger();
-            var downloadViewModel = CreateIDownloadViewModel(0, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
+            //Arrange    
             MainViewModel mainViewModel = CreateMainViewModel();
             mainViewModel.UrlText = "https://sample-videos.com/video123/mp4/360/big_buck_bunny_360p_30mb.mp4";
 
@@ -31,49 +28,45 @@ namespace Downloader.UnitTest
             mainViewModel.Downloads.Single().Name.Should().Be("big_buck_bunny_360p_30mb.mp4");
             mainViewModel.Downloads.Single().URL.Should().Be("https://sample-videos.com/video123/mp4/360/big_buck_bunny_360p_30mb.mp4");
             mainViewModel.Downloads.Single().Progress.Should().Be(0.0);
-            
-
         }
 
         [Test]
         public void Given_ProgressbarIncreses_When_Downloadprogresses_Then_PropertyGetsIncreased()
         {
-
             //Arrange
-            //DownloadViewModel downloadViewModel = CreateIDownloadViewModel(0, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
+            var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
 
-            //var mockedDownloader = new Mock<IDownloader>();
-            //mockedDownloader
-            //    .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()))
-            //    .Callback((string url, string name, IProgress<double> progress) => progress.Report(10.0));
+            var mockedDownloader = new Mock<IDownloader>();
+            mockedDownloader
+                .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()))
+                .Callback((string url, string name, IProgress<double> progress) => progress.Report(10.0));
+            downloadViewModel
+                .Setup(x => x.StartDownload());
 
-            //IMessenger messagar = new Messenger();
-            //MainViewModel mainViewModel = CreateMainViewModel();
+            IMessenger messagar = new Messenger();
+            MainViewModel mainViewModel = CreateMainViewModel();
+
+            //Act
+            downloadViewModel.Object.StartDownload();
 
 
-
-            ////Act
-            //downloadViewModel.StartDownloading.Execute();
-
-            ////Assert
-            //downloadViewModel.VerifySet(x => x.Progress = 10.0, Times.Once);
-            //mockedDownloader.Verify(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()), Times.Once);
+            //Assert
+            downloadViewModel.Object.Progress.Should().Be(10.0);
+            mockedDownloader.Verify(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()), Times.Once);
 
         }
 
         [Test]
         public void Given_Downloading_When_DownloadStopButtonIsPressed_Then_DownloadGetsStopped()
         {
-            ////Arrange
-            //var mockedDownloader = CreateIDownloader();
+            //Arrange
+            var mockedDownloader = CreateIDownloader();
+            var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
+            //Act
+            downloadViewModel.Object.StopDownload();
 
-            ////CommandStopDownloading commandStopDownloading = new CommandStopDownloading(mockedDownloader.Object);
-
-            ////Act
-            ////commandStopDownloading.Execute(null);
-
-            ////Assert
-            //mockedDownloader.Verify(x => x.Stop(), Times.AtMostOnce);
+            //Assert
+            downloadViewModel.Verify(x => x.StopDownload(), Times.AtMostOnce);
         }
 
 
@@ -105,11 +98,11 @@ namespace Downloader.UnitTest
             return mockedIDownloader.Object;
         }
 
-        MainViewModel CreateMainViewModel()            
+        MainViewModel CreateMainViewModel()
         {
             Func<IDownloadViewModel> func = () => Mock.Of<IDownloadViewModel>();
 
             return new MainViewModel(Mock.Of<IMessenger>(), func);
-        }        
+        }
     }
 }

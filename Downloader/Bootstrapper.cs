@@ -26,14 +26,19 @@ namespace Downloader
 
         protected override void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<DownloadViewModel>().As<IDownloadViewModel>();
-            builder.RegisterType<Messenger>().As<IMessenger>();
+            builder.RegisterType<DownloadViewModel>()
+                .As<IDownloadViewModel>();
+            builder.RegisterType<Messenger>()
+                .As<IMessenger>();
             builder.RegisterType<MainViewModel>();
-            builder.RegisterType<AsyncDownloader>().As<IDownloader>();
+            builder.RegisterType<AsyncDownloader>()
+                .As<IDownloader>();
             builder.RegisterType<WindowManager>()
-                .AsImplementedInterfaces().SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder.RegisterType<EventAggregator>()
-                .AsImplementedInterfaces().SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

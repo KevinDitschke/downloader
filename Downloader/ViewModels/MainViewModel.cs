@@ -6,7 +6,7 @@ using System.IO;
 namespace Downloader
 {
 
-    public class MainViewModel : PropertyChangedBase
+    public class MainViewModel : Screen
     {
         private readonly IMessenger _messenger;
         private readonly Func<IDownloadViewModel> _createDownloadViewModel;
@@ -18,6 +18,11 @@ namespace Downloader
         {
             _messenger = messenger;
             _createDownloadViewModel = createDownloadViewModel;
+        }
+
+        protected override void OnActivate()
+        {
+            base.OnActivate();
         }
 
 

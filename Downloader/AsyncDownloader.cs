@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
@@ -11,16 +12,23 @@ using System.Windows;
 
 namespace Downloader
 {
-    public class AsyncDownloader : IDownloader
+    public class AsyncDownloader : IDownloader, IResult
     {
         public string filePath = @"C:\testi\";
 
-        CancellationTokenSource tokenSource;
+        CancellationTokenSource _tokenSource;
+
+        public event EventHandler<ResultCompletionEventArgs> Completed;
+
+        public void Execute(CoroutineExecutionContext context)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> Start(string url, string name, IProgress<double> progress)
         {
-            tokenSource = new CancellationTokenSource();
-            CancellationToken ct = tokenSource.Token;
+            _tokenSource = new CancellationTokenSource();
+            CancellationToken ct = _tokenSource.Token;
 
             try
             {
@@ -33,29 +41,22 @@ namespace Downloader
                     var result = await GetFileAsync(file, url, name, progress, ct);
                     return true;
                 }
-
-
             }
             catch (TaskCanceledException)
             {
-
                 return false;
 
             }
             catch (IOException)
             {
-
                 return false;
-
             }
-
-
         }
 
         public void Stop()
         {
-            if (tokenSource != null)
-                tokenSource.Cancel();
+            if (_tokenSource != null)
+                _tokenSource.Cancel();
         }
 
         private async Task<bool> GetFileAsync(FileStream file, string url, string name, IProgress<double> progress, CancellationToken ct)
@@ -82,7 +83,8 @@ namespace Downloader
                         await file.WriteAsync(buffer, 0, bytesRead, ct);
                         totalBytesRead += bytesRead;
 
-                        if (++i % 1000 == 0) { 
+                        if (++i % 1000 == 0)
+                        {
                             Console.WriteLine("Progress " + i);
                             progress?.Report((double)totalBytesRead / contentLength.Value);
                         }
