@@ -24,8 +24,6 @@ namespace Downloader
         {
             base.OnActivate();
         }
-
-
         public bool CanAddDownloadViewModelToList => !string.IsNullOrWhiteSpace(UrlText);
         public void AddDownloadViewModelToList()
         {

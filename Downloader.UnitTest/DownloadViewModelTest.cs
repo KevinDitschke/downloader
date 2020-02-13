@@ -34,17 +34,27 @@ namespace Downloader.UnitTest
         public void Given_ProgressbarIncreses_When_Downloadprogresses_Then_PropertyGetsIncreased()
         {
             //Arrange
-            var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
+            //var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
 
+            var mockedDownloader = new Mock<IDownloader>();
 
-            MainViewModel mainViewModel = CreateMainViewModel();
+            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>())
+            {
+                URL = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv",
+                Name = "big_buck_bunny_360p_30mb.mkv"
+            };
+
+            mockedDownloader
+                .Setup(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()))
+                .Callback((string url, string name, IProgress<double> progress) => progress.Report(10));
 
             //Act
-            downloadViewModel.Object.StartDownload();
-
+            downloadViewModel.StartDownload();
 
             //Assert
-            downloadViewModel.Object.Progress.Should().Be(10.0);
+            downloadViewModel.Progress.Should().Be(10.0);
+
+            mockedDownloader.Verify(x => x.Start("https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv", It.IsAny<IProgress<double>>()), Times.Once());
         }
 
         [Test]
@@ -58,6 +68,21 @@ namespace Downloader.UnitTest
 
             //Assert
             downloadViewModel.Verify(x => x.StopDownload(), Times.AtMostOnce);
+
+        }
+
+        [Test]
+        public void Given_ButtonIsDeactivated_When_URLTextBoxGetsFilled_Then_ButtonIsActivated()
+        {
+
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
+
         }
 
 

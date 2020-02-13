@@ -67,7 +67,7 @@ namespace Downloader
             using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
             {
                 Console.WriteLine(response.StatusCode.ToString());
-                if (response.StatusCode.ToString() == "NotFound")
+                if (response.StatusCode!= HttpStatusCode.OK)
                     return false;
                 await Task.Delay(100);
                 var contentLength = response.Content.Headers.ContentLength;
