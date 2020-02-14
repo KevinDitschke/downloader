@@ -34,7 +34,6 @@ namespace Downloader.UnitTest
         public void Given_ProgressbarIncreses_When_Downloadprogresses_Then_PropertyGetsIncreased()
         {
             //Arrange
-            //var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
 
             var mockedDownloader = new Mock<IDownloader>();
 
@@ -76,12 +75,34 @@ namespace Downloader.UnitTest
         {
 
             //Arrange
-
-
+            var mainViewModel = CreateMainViewModel();
+            mainViewModel.UrlText = string.Empty;
+            
             //Act
-
+            mainViewModel.UrlText = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv";
 
             //Assert
+            mainViewModel.CanAddDownloadViewModelToList.Should().Be(true);
+
+        }
+
+        [Test]
+        public void Given_DownloadIsNotStarted_WhenStartDownloadGetsPressed_Then_StartDownloadButtonGetsDeactivated()
+        {
+
+            //Arrange
+            var mockedDownloader = new Mock<IDownloader>();
+            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>())
+            {
+                URL = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv",
+                Name = "big_buck_bunny_360p_30mb.mkv"
+            };
+            //Act
+            downloadViewModel.StartDownload();
+
+            //Assert
+            downloadViewModel.DownloadStarted.Should().Be(false);
+
 
         }
 

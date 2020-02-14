@@ -5,6 +5,7 @@
         string Name { get; set; }
         double Progress { get; set; }
         string URL { get; set; }
+        bool DownloadStarted { get; set; }    
         
         void StartDownload();
         void StopDownload();

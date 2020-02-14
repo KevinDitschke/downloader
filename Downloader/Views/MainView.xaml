@@ -8,12 +8,10 @@
         Title="Downloader" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" >
 
     <Window.Resources>
-        <ControlTemplate x:Key="Buttons" TargetType="Button">
-            <Grid>
-                <Ellipse Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}"/>
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>                
-            </Grid>
-        </ControlTemplate>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10">
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,7 +25,7 @@
         </Grid.RowDefinitions>
         <Label Name="welcomeText" Content="Enter URL to the file you wish to download" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0"/>
         <TextBox x:Name="urlTextBox"  Text="{Binding Path=UrlText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="0" Margin="10"></TextBox>
-        <Button cal:Message.Attach="[Event Click] = [Action AddDownloadViewModelToList]"  Content="Add to List" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"></Button>
+        <Button cal:Message.Attach="[Event Click] = [Action AddDownloadViewModelToList]"  Content="Add to List" Grid.Row="1" Grid.Column="1"></Button>
         <ListView ItemsSource="{Binding Downloads, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="10">
             <ListView.View>
                 <GridView>
@@ -35,7 +33,7 @@
                     <GridViewColumn Width="250" Header="Progress">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Maximum="1" Width="260"  Height="20px" Value="{Binding Progress}"/>
+                                <ProgressBar Maximum="1" MinHeight="20px" MinWidth="40px" Width="260"   Value="{Binding Progress}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
