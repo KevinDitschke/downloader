@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace Downloader
 {
     public class AsyncDownloader : IDownloader, IResult
@@ -64,14 +63,16 @@ namespace Downloader
 
             HttpClient client = new HttpClient();
             int bufferSize = 2048;
+
             using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
             {
+
                 Debug.WriteLine(response.StatusCode.ToString());
-                if (response.StatusCode!= HttpStatusCode.OK)
+                if (response.StatusCode != HttpStatusCode.OK)
                     return false;
                 await Task.Delay(100);
-                var contentLength = response.Content.Headers.ContentLength;
 
+                var contentLength = response.Content.Headers.ContentLength;
                 using (var download = await response.Content.ReadAsStreamAsync())
                 {
                     var buffer = new byte[bufferSize];
@@ -85,7 +86,8 @@ namespace Downloader
 
                         if (++i % 1000 == 0)
                         {
-                            Debug.WriteLine("Progress " + i);
+                            Debug.WriteLine("Progress " + totalBytesRead);
+                            await Task.Delay(100);
                             progress?.Report((double)totalBytesRead / contentLength.Value);
                         }
 

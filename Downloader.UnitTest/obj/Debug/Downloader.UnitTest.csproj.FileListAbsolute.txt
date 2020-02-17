@@ -1,4 +1,3 @@
-C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\obj\Debug\Downloader.UnitTest.csprojAssemblyReference.cache
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
@@ -43,6 +42,7 @@ C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Au
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Caliburn.Micro.Platform.xml
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Caliburn.Micro.Platform.Core.xml
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\obj\Debug\Downloader.UnitTest.csprojAssemblyReference.cache
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\obj\Debug\Downloader.UnitTest.csproj.CopyComplete
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\obj\Debug\Downloader.UnitTest.dll
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader.UnitTest\obj\Debug\Downloader.UnitTest.pdb

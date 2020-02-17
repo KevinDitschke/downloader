@@ -111,14 +111,11 @@ namespace Downloader.UnitTest
                 Name = "big_buck_bunny_360p_30mb.mkv"
             };
 
-
             //Act
             downloadViewModel.StartDownload();
 
             //Assert
             downloadViewModel.IsDownloading.Should().Be(true);
-
-
         }
 
 
@@ -162,7 +159,6 @@ namespace Downloader.UnitTest
             Func<IEnumerable<IEncryptable>> func = () => Mock.Of<IEnumerable<IEncryptable>>();
 
             return func.Invoke();
-
         }
     }
 }
