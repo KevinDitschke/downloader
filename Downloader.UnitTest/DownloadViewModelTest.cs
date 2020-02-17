@@ -39,8 +39,8 @@ namespace Downloader.UnitTest
             //Arrange
 
             var mockedDownloader = new Mock<IDownloader>();
-
-            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>())
+            var mockedIEncryptable = CreateMonster();
+            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>(), mockedIEncryptable)
             {
                 URL = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv",
                 Name = "big_buck_bunny_360p_30mb.mkv"
@@ -103,7 +103,9 @@ namespace Downloader.UnitTest
                     return true;
                 });
 
-            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>(), Mock.Of<IEnumerable<IEncryptable>>)
+            var mockedIEncryptable = CreateMonster();           
+
+            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>(), mockedIEncryptable)
             {
                 URL = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv",
                 Name = "big_buck_bunny_360p_30mb.mkv"
@@ -153,6 +155,14 @@ namespace Downloader.UnitTest
             Func<IDownloadViewModel> func = () => Mock.Of<IDownloadViewModel>();
 
             return new MainViewModel(Mock.Of<IMessenger>(), func);
+        }
+
+        IEnumerable<IEncryptable> CreateMonster()
+        {
+            Func<IEnumerable<IEncryptable>> func = () => Mock.Of<IEnumerable<IEncryptable>>();
+
+            return func.Invoke();
+
         }
     }
 }
