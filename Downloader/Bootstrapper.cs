@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
+using Downloader.Hashing;
 using System.Windows;
 
 namespace Downloader
@@ -33,12 +34,16 @@ namespace Downloader
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<AsyncDownloader>()
                 .As<IDownloader>();
+            builder.RegisterType<MD5Hasher>().As<IEncryptable>();
+            builder.RegisterType<SHA256Hasher>().As<IEncryptable>();
+            builder.RegisterType<SHA512Hasher>().As<IEncryptable>();
             builder.RegisterType<WindowManager>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder.RegisterType<EventAggregator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            
         }
     }
 }

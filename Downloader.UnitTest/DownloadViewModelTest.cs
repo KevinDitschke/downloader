@@ -1,8 +1,11 @@
-﻿using FluentAssertions;
+﻿using Downloader.Hashing;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Downloader.UnitTest
 {
@@ -71,37 +74,47 @@ namespace Downloader.UnitTest
         }
 
         [Test]
-        public void Given_ButtonIsDeactivated_When_URLTextBoxGetsFilled_Then_ButtonIsActivated()
+        [TestCase("sfjsbdf", true)]
+        [TestCase("", false)]
+        public void Given_ButtonIsDeactivated_When_URLTextBoxGetsFilled_Then_ButtonIsActivated(string urlText, bool expectedCanDownload)
         {
 
             //Arrange
             var mainViewModel = CreateMainViewModel();
-            mainViewModel.UrlText = string.Empty;
-            
-            //Act
-            mainViewModel.UrlText = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv";
 
+            //Act
+            mainViewModel.UrlText = urlText;
             //Assert
-            mainViewModel.CanAddDownloadViewModelToList.Should().Be(true);
+            mainViewModel.CanAddDownloadViewModelToList.Should().Be(expectedCanDownload);
 
         }
 
         [Test]
-        public void Given_DownloadIsNotStarted_WhenStartDownloadGetsPressed_Then_StartDownloadButtonGetsDeactivated()
+        public void Given_DownloadIsNotStarted_When_StartDownloadGetsPressed_Then_StartDownloadButtonGetsDeactivated()
         {
 
             //Arrange
             var mockedDownloader = new Mock<IDownloader>();
-            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>())
+            mockedDownloader
+                .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()))
+                .Returns(async () =>
+                {
+                    await Task.Delay(1000);
+                    return true;
+                });
+
+            var downloadViewModel = new DownloadViewModel(mockedDownloader.Object, Mock.Of<IMessenger>(), Mock.Of<IEnumerable<IEncryptable>>)
             {
                 URL = "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv",
                 Name = "big_buck_bunny_360p_30mb.mkv"
             };
+
+
             //Act
             downloadViewModel.StartDownload();
 
             //Assert
-            downloadViewModel.DownloadStarted.Should().Be(false);
+            downloadViewModel.IsDownloading.Should().Be(true);
 
 
         }

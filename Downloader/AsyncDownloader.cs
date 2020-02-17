@@ -1,24 +1,24 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 
 namespace Downloader
 {
     public class AsyncDownloader : IDownloader, IResult
     {
-        public string filePath = @"C:\testi\";
+        public string FilePath { get; set; } = @"C:\testi\";
+        public string FileName { get; set; }
 
         CancellationTokenSource _tokenSource;
 
         public event EventHandler<ResultCompletionEventArgs> Completed;
+
 
         public void Execute(CoroutineExecutionContext context)
         {
@@ -32,12 +32,12 @@ namespace Downloader
 
             try
             {
-                if (!Directory.Exists(filePath))
-                    Directory.CreateDirectory(filePath);
+                if (!Directory.Exists(FilePath))
+                    Directory.CreateDirectory(FilePath);
 
-                using (var file = new FileStream(filePath + name, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var file = new FileStream(FilePath + name, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-
+                    FileName = name;
                     var result = await GetFileAsync(file, url, name, progress, ct);
                     return true;
                 }
@@ -66,7 +66,7 @@ namespace Downloader
             int bufferSize = 2048;
             using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
             {
-                Console.WriteLine(response.StatusCode.ToString());
+                Debug.WriteLine(response.StatusCode.ToString());
                 if (response.StatusCode!= HttpStatusCode.OK)
                     return false;
                 await Task.Delay(100);
@@ -85,7 +85,7 @@ namespace Downloader
 
                         if (++i % 1000 == 0)
                         {
-                            Console.WriteLine("Progress " + i);
+                            Debug.WriteLine("Progress " + i);
                             progress?.Report((double)totalBytesRead / contentLength.Value);
                         }
 

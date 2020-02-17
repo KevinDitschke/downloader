@@ -103,10 +103,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Hashing\IEncryptable.cs" />
+    <Compile Include="Hashing\MD5Hasher.cs" />
+    <Compile Include="Hashing\SHA256Hasher.cs" />
+    <Compile Include="Hashing\SHA512Hasher.cs" />
     <Compile Include="ViewModels\IDownloadViewModel.cs" />
     <Compile Include="IMessenger.cs" />
     <Compile Include="Messenger.cs" />
-    <Compile Include="WebClientDownloader.cs" />
     <Compile Include="ViewModels\DownloadViewModel.cs" />
     <Compile Include="IDownloader.cs" />
     <Compile Include="Views\MainView.xaml.cs">
