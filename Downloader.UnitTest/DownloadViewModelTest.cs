@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Downloader.ViewModels;
 
 namespace Downloader.UnitTest
 {
@@ -63,7 +64,6 @@ namespace Downloader.UnitTest
         public void Given_Downloading_When_DownloadStopButtonIsPressed_Then_DownloadGetsStopped()
         {
             //Arrange
-            var mockedDownloader = CreateIDownloader();
             var downloadViewModel = CreateIDownloadViewModel(10, "https://sample-videos.com/video123/mkv/360/big_buck_bunny_360p_30mb.mkv", "big_buck_bunny_360p_30mb.mkv");
             //Act
             downloadViewModel.Object.StopDownload();
@@ -81,7 +81,7 @@ namespace Downloader.UnitTest
 
             //Arrange
             var mainViewModel = CreateMainViewModel();
-
+            
             //Act
             mainViewModel.UrlText = urlText;
             //Assert
@@ -134,19 +134,7 @@ namespace Downloader.UnitTest
                 .Returns(name);
             return mockedDownloadViewModel;
         }
-
-        IDownloader CreateIDownloader()
-        {
-            var mockedIDownloader = new Mock<IDownloader>();
-
-            mockedIDownloader
-                .Setup(x => x.Start(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IProgress<double>>()));
-            mockedIDownloader
-                .Setup(x => x.Stop());
-
-            return mockedIDownloader.Object;
-        }
-
+        
         MainViewModel CreateMainViewModel()
         {
             Func<IDownloadViewModel> func = () => Mock.Of<IDownloadViewModel>();

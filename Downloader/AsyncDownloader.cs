@@ -27,7 +27,7 @@ namespace Downloader
                 using (var file = new FileStream(FilePath + name, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     FileName = name;
-                    var result = await GetFileAsync(file, url, progress, ct);
+                    await GetFileAsync(file, url, progress, ct);
                     return true;
                 }
             }
@@ -44,19 +44,17 @@ namespace Downloader
 
         public void Stop()
         {
-            if (_tokenSource != null)
-                _tokenSource.Cancel();
+            _tokenSource?.Cancel();
         }
 
-        private async Task<bool> GetFileAsync(FileStream file, string url, IProgress<double> progress, CancellationToken ct)
+        private async Task GetFileAsync(FileStream file, string url, IProgress<double> progress, CancellationToken ct)
         {
             HttpClient client = new HttpClient();
             int bufferSize = 2048;
 
-            using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+            using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct))
             {
-                if (response.StatusCode != HttpStatusCode.OK)
-                    return false;
+                if (response.StatusCode != HttpStatusCode.OK) return;
 
                 var contentLength = response.Content.Headers.ContentLength;
                 using (var download = await response.Content.ReadAsStreamAsync())
@@ -72,16 +70,14 @@ namespace Downloader
                         totalBytesRead += bytesRead;
 
                         if (++i % 1000 == 0)
-                            progress?.Report((double)totalBytesRead / contentLength.Value);
+                            if (contentLength != null)
+                                progress?.Report((double) totalBytesRead / contentLength.Value);
 
 
-                        if (totalBytesRead == contentLength.Value)
-                            return true;
+                        if (contentLength != null && totalBytesRead == contentLength.Value) return;
                     }
                 }
             }
-
-            return false;
         }
 
     }

@@ -5,6 +5,6 @@ namespace Downloader.Hashing
     public interface IEncryptable
     {
         string Description { get; }
-        Task<string> getHash(string filePath);
+        Task<string> GetHash(string filePath);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Downloader.Hashing
 {
-    public class SHA512Hasher : DefaultHasher
+    public class Sha512Hasher : DefaultHasher
     {
 
         protected override HashAlgorithm CreateAlgorithm() => SHA512.Create();

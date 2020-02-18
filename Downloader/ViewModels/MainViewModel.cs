@@ -1,9 +1,9 @@
-﻿using Caliburn.Micro;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using Caliburn.Micro;
 
-namespace Downloader
+namespace Downloader.ViewModels
 {
 
     public class MainViewModel : Screen
@@ -20,10 +20,6 @@ namespace Downloader
             _createDownloadViewModel = createDownloadViewModel;
         }
 
-        protected override void OnActivate()
-        {
-            base.OnActivate();
-        }
         public bool CanAddDownloadViewModelToList => !string.IsNullOrWhiteSpace(UrlText);
         public void AddDownloadViewModelToList()
         {

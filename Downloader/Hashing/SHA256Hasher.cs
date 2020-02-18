@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Downloader.Hashing
 {
-    public class SHA256Hasher : DefaultHasher
+    public class Sha256Hasher : DefaultHasher
     {
         protected override HashAlgorithm CreateAlgorithm() => SHA256.Create();
 

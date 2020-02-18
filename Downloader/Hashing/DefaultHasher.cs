@@ -10,7 +10,7 @@ namespace Downloader.Hashing
         public abstract string Description { get; }
         protected abstract HashAlgorithm CreateAlgorithm();
         
-        public async Task<string> getHash(string filePath)
+        public async Task<string> GetHash(string filePath)
         {
             StringBuilder sb = new StringBuilder();
 

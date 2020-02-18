@@ -2,7 +2,7 @@
 
 namespace Downloader.Hashing
 {
-    public class MD5Hasher : DefaultHasher
+    public class Md5Hasher : DefaultHasher
     {
         protected override HashAlgorithm CreateAlgorithm() => MD5.Create();
 

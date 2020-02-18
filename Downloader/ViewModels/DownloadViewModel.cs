@@ -1,11 +1,11 @@
-﻿using Caliburn.Micro;
-using Downloader.Hashing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using Caliburn.Micro;
+using Downloader.Hashing;
 
-namespace Downloader
+namespace Downloader.ViewModels
 {
     public class DownloadViewModel : PropertyChangedBase, IDownloadViewModel
     {
@@ -16,7 +16,7 @@ namespace Downloader
         public double Progress { get; set; }
         public string Name { get; set; }
         public string URL { get; set; }
-        public bool IsDownloading { get; set; } = false;
+        public bool IsDownloading { get; set; }
 
         public DownloadViewModel(IDownloader downloader, IMessenger messenger, IEnumerable<IEncryptable> encryptables)
         {
@@ -43,7 +43,7 @@ namespace Downloader
                     foreach (var enc in _encryptables)
                     {
                         sb.Append(enc.Description);
-                        sb.Append(await enc.getHash(_downloader.FilePath + _downloader.FileName) + "\n");
+                        sb.Append(await enc.GetHash(_downloader.FilePath + _downloader.FileName) + "\n");
 
                     }
                     _messenger.DisplayMessage(sb.ToString(), "Success!");
@@ -57,7 +57,7 @@ namespace Downloader
             catch (HttpRequestException)
             {
                 IsDownloading = false;
-                _messenger.DisplayMessage("Verbindungsfehler", "Error!");
+                _messenger.DisplayMessage("Connection issue!", "Error!");
 
             }
         }
