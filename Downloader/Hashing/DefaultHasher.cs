@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +9,7 @@ namespace Downloader.Hashing
     {
         public abstract string Description { get; }
         protected abstract HashAlgorithm CreateAlgorithm();
-
-        private const int bufferSize = 4096;
-
+        
         public async Task<string> getHash(string filePath)
         {
             StringBuilder sb = new StringBuilder();
@@ -28,7 +23,6 @@ namespace Downloader.Hashing
                     {
                         sb.Append(b.ToString("x2").ToLower());
                     }
-
                 }
             });
             return sb.ToString();

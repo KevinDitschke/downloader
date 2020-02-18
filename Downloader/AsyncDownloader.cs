@@ -1,6 +1,4 @@
-﻿using Caliburn.Micro;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
