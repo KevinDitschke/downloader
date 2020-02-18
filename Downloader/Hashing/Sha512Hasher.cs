@@ -1,31 +1,13 @@
-﻿using System.IO;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Security.Cryptography;
 
 namespace Downloader.Hashing
 {
-    public class SHA512Hasher : IEncryptable
+    public class SHA512Hasher : DefaultHasher
     {
-        
-        
-        public string getHash(string filePath)
-        {
-            SHA512 sha512 = SHA512.Create();
-            using (FileStream stream = File.OpenRead(filePath))
-            {
 
-                StringBuilder sb = new StringBuilder();
+        protected override HashAlgorithm CreateAlgorithm() => SHA512.Create();
 
-                sb.Append("SHA512 Hash: ");
+        public override string Description { get; } = "SHA512 Hash";
 
-                foreach (byte b in sha512.ComputeHash(stream))
-                {
-                    sb.Append(b.ToString("x2").ToLower());
-                }
-
-                return sb.ToString();
-
-            }
-        }
     }
 }

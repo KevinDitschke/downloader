@@ -21,6 +21,7 @@ C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\FluentAsser
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Downloader.csprojAssemblyReference.cache
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Views\MainView.baml
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\Views\MainView.g.cs
 C:\Users\kevin.ditschke\source\repos\Downloader\Downloader\obj\Debug\App.g.cs

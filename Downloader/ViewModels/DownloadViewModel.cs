@@ -38,12 +38,12 @@ namespace Downloader
                 {
                     StringBuilder sb = new StringBuilder();
 
-                    sb.Append("The file was successfully downloaded!\nHashes for this file:\n");
+                    sb.Append(_downloader.FileName + " was successfully downloaded!\nHashes for this file:\n");
                     IsDownloading = false;
-                    foreach(var enc in _encryptables)
+                    foreach (var enc in _encryptables)
                     {
-
-                        sb.Append(enc.getHash(_downloader.FilePath + _downloader.FileName) + "\n");
+                        sb.Append(enc.Description);
+                        sb.Append(await enc.getHash(_downloader.FilePath + _downloader.FileName) + "\n");
 
                     }
                     _messenger.DisplayMessage(sb.ToString(), "Success!");

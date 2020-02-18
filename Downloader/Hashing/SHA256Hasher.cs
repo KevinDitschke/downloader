@@ -4,24 +4,10 @@ using System.Text;
 
 namespace Downloader.Hashing
 {
-    public class SHA256Hasher : IEncryptable
+    public class SHA256Hasher : DefaultHasher
     {
-        public string getHash(string filePath)
-        {
-            SHA256 sha256 = SHA256.Create();
-            using (FileStream stream = File.OpenRead(filePath))
-            {
+        protected override HashAlgorithm CreateAlgorithm() => SHA256.Create();
 
-                StringBuilder sb = new StringBuilder();
-
-                sb.Append("SHA256 Hash: ");
-
-                foreach (byte b in sha256.ComputeHash(stream))
-                {
-                    sb.Append(b.ToString("x2").ToLower());
-                }
-                return sb.ToString();
-            }
-        }
+        public override string Description { get; } = "SHA256 Hash";
     }
 }

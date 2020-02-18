@@ -156,9 +156,9 @@ namespace Downloader.UnitTest
 
         IEnumerable<IEncryptable> CreateMonster()
         {
-            Func<IEnumerable<IEncryptable>> func = () => Mock.Of<IEnumerable<IEncryptable>>();
+            
 
-            return func.Invoke();
+            return Mock.Of<IEnumerable<IEncryptable>>();
         }
     }
 }

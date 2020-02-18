@@ -103,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Hashing\DefaultHasher.cs" />
     <Compile Include="Hashing\IEncryptable.cs" />
     <Compile Include="Hashing\MD5Hasher.cs" />
     <Compile Include="Hashing\SHA256Hasher.cs" />

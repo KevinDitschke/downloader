@@ -1,29 +1,11 @@
-﻿using System.IO;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Security.Cryptography;
 
 namespace Downloader.Hashing
 {
-    public class MD5Hasher : IEncryptable
+    public class MD5Hasher : DefaultHasher
     {
-        public string getHash(string filePath)
-        {
-            MD5 md5 = MD5.Create();
-            using (FileStream stream = File.OpenRead(filePath))
-            {
+        protected override HashAlgorithm CreateAlgorithm() => MD5.Create();
 
-                StringBuilder sb = new StringBuilder();
-
-                sb.Append("MD5 Hash: ");
-
-                foreach (byte b in md5.ComputeHash(stream))
-                {
-                    sb.Append(b.ToString("x2").ToLower());
-                }
-
-                return sb.ToString();
-
-            }
-        }
+        public override string Description { get; } = "Md5 Hash";
     }
 }
