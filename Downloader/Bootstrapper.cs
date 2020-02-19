@@ -1,13 +1,13 @@
-﻿using Autofac;
+﻿using System.Windows;
+using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using Downloader.Hashing;
-using System.Windows;
 using Downloader.ViewModels;
 
 namespace Downloader
 {
-    class Bootstrapper : AutofacBootstrapper<MainViewModel>
+    internal class Bootstrapper : AutofacBootstrapper<MainViewModel>
     {
         public Bootstrapper()
         {
@@ -23,7 +23,6 @@ namespace Downloader
         {
             base.ConfigureBootstrapper();
             EnforceNamespaceConvention = false;
-
         }
 
         protected override void ConfigureContainer(ContainerBuilder builder)
@@ -44,7 +43,6 @@ namespace Downloader
             builder.RegisterType<EventAggregator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Downloader.Hashing
     {
         public abstract string Description { get; }
         protected abstract HashAlgorithm CreateAlgorithm();
-        
+
         public async Task<string> GetHash(string filePath)
         {
             StringBuilder sb = new StringBuilder();
@@ -26,6 +26,6 @@ namespace Downloader.Hashing
                 }
             });
             return sb.ToString();
-        }        
+        }
     }
 }

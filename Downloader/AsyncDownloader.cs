@@ -9,15 +9,14 @@ namespace Downloader
 {
     public class AsyncDownloader : IDownloader
     {
+        private CancellationTokenSource _tokenSource;
         public string FilePath { get; set; } = @"C:\testi\";
         public string FileName { get; set; }
-
-        CancellationTokenSource _tokenSource;
 
         public async Task<bool> Start(string url, string name, IProgress<double> progress)
         {
             _tokenSource = new CancellationTokenSource();
-            CancellationToken ct = _tokenSource.Token;
+            var ct = _tokenSource.Token;
 
             try
             {
@@ -34,7 +33,6 @@ namespace Downloader
             catch (TaskCanceledException)
             {
                 return false;
-
             }
             catch (IOException)
             {
@@ -49,8 +47,8 @@ namespace Downloader
 
         private async Task GetFileAsync(FileStream file, string url, IProgress<double> progress, CancellationToken ct)
         {
-            HttpClient client = new HttpClient();
-            int bufferSize = 2048;
+            var client = new HttpClient();
+            var bufferSize = 2048;
 
             using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, ct))
             {
@@ -62,10 +60,9 @@ namespace Downloader
                     var buffer = new byte[bufferSize];
                     long totalBytesRead = 0;
                     int bytesRead;
-                    int i = 0;
+                    var i = 0;
                     while ((bytesRead = await download.ReadAsync(buffer, 0, buffer.Length, ct)) != 0)
                     {
-
                         await file.WriteAsync(buffer, 0, bytesRead, ct);
                         totalBytesRead += bytesRead;
 
@@ -79,6 +76,5 @@ namespace Downloader
                 }
             }
         }
-
     }
 }

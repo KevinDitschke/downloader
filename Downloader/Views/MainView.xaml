@@ -5,36 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="Downloader" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" >
+        Title="Downloader" Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="10,10,10,10">
-            </Setter>
+            <Setter Property="Margin" Value="10,10,10,10" />
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="8*" />
         </Grid.RowDefinitions>
-        <Label Content="Enter URL to the file you wish to download" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0"/>
-        <TextBox Text="{Binding Path=UrlText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="0" Margin="10"></TextBox>
-        <Button cal:Message.Attach="[Event Click] = [Action AddDownloadViewModelToList]"  Content="Add to List" Grid.Row="1" Grid.Column="1"></Button>
+        <Label Content="Enter URL to the file you wish to download" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0" />
+        <TextBox Text="{Binding Path=UrlText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
+                 Grid.Column="0" Margin="10" />
+        <Button cal:Message.Attach="[Event Click] = [Action AddDownloadViewModelToList]" Content="Add to List"
+                Grid.Row="1" Grid.Column="1" />
         <ListView ItemsSource="{Binding Downloads, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="0"
                   Margin="10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="300" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Width="300" Header="Name" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Width="250" Header="Progress">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Maximum="1" MinHeight="20px" MinWidth="40px" Width="260" Value="{Binding Progress}"/>
+                                <ProgressBar Maximum="1" MinHeight="20px" MinWidth="40px" Width="260"
+                                             Value="{Binding Progress}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -42,7 +45,8 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Focusable="False" Content="Start" cal:Message.Attach="[Event Click] = [Action StartDownload]"/>
+                                    <Button Focusable="False" Content="Start"
+                                            cal:Message.Attach="[Event Click] = [Action StartDownload]" />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -51,7 +55,8 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Focusable="False" Content="Stop" cal:Message.Attach="[Event Click] = [Action StopDownload]"/>
+                                    <Button Focusable="False" Content="Stop"
+                                            cal:Message.Attach="[Event Click] = [Action StopDownload]" />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

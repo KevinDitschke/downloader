@@ -10,13 +10,8 @@ namespace Downloader.ViewModels
     public class DownloadViewModel : PropertyChangedBase, IDownloadViewModel
     {
         private readonly IDownloader _downloader;
-        private readonly IMessenger _messenger;
         private readonly IEnumerable<IEncryptable> _encryptables;
-
-        public double Progress { get; set; }
-        public string Name { get; set; }
-        public string URL { get; set; }
-        public bool IsDownloading { get; set; }
+        private readonly IMessenger _messenger;
 
         public DownloadViewModel(IDownloader downloader, IMessenger messenger, IEnumerable<IEncryptable> encryptables)
         {
@@ -24,8 +19,15 @@ namespace Downloader.ViewModels
             _messenger = messenger;
             _encryptables = encryptables;
         }
+
         public bool CanStartDownload => !IsDownloading;
         public bool CanStopDownload => IsDownloading;
+
+        public double Progress { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
+        public bool IsDownloading { get; set; }
+
         public async void StartDownload()
         {
             var progress = new Progress<double>(value => { Progress = value; });
@@ -36,7 +38,7 @@ namespace Downloader.ViewModels
 
                 if (success)
                 {
-                    StringBuilder sb = new StringBuilder();
+                    var sb = new StringBuilder();
 
                     sb.Append(_downloader.FileName + " was successfully downloaded!\nHashes for this file:\n");
                     IsDownloading = false;
@@ -44,8 +46,8 @@ namespace Downloader.ViewModels
                     {
                         sb.Append(enc.Description);
                         sb.Append(await enc.GetHash(_downloader.FilePath + _downloader.FileName) + "\n");
-
                     }
+
                     _messenger.DisplayMessage(sb.ToString(), "Success!");
                 }
                 else
@@ -58,7 +60,6 @@ namespace Downloader.ViewModels
             {
                 IsDownloading = false;
                 _messenger.DisplayMessage("Connection issue!", "Error!");
-
             }
         }
 
